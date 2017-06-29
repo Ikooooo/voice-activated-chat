@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Voice Activated Chat</title>
+    <link rel="stylesheet" type="" href="css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="menu">
+            <a href="#" class="back"><i class="fa fa-angle-left"></i> <img src="https://i.imgur.com/G4EjwqQ.jpg" draggable="false"/></a>
+            <div class="title">Voice Activated Chat</div>
+            <div class="subtitle">with Natural Language Processing</div>
+        </div>
+        <ol class="chat">
+            <li class="other" v-for="(m, index) in messages" :key="index" :class="[m.owner ? self : other]">
+                <div class="msg">
+                    <p v-if="m.type == 'media'"><iframe width="560" height="315" :src="m.url" frameborder="0" allowfullscreen></iframe></p>
+                    <p v-else :class="[m.type == 'search' ? wikipediaStyle : '']">[[ m.text ]]</p>
+                    <time>[[ formatTimestamp(m.time) ]]</time>
+                </div>
+            </li>
+        </ol>
+        <div class="typezone">
+            <textarea type="text" placeholder="Say something" v-model="recognized"></textarea><input type="submit" class="send" value="" @click="process"/>
+        </div>
+    </div>
+    <%- include('partials/scripts') %>
+</body>
+
+</html>
